@@ -1,0 +1,22 @@
+{% extends 'base.html' %}
+
+{% block content %}
+<main class="container">
+    <div class="row">
+        <div class="col-md-4 offset-md-4">
+            <form action="{% url 'create_task' %}" method="POST" class="card card-body mt-5 gap-2" >
+                {% csrf_token %}
+                {{form}}
+                <button class="btn btn-primary" >Actualizar</button>
+                 <!--El formaction se ejecuta cuando se le de click al boton y se ejecuta la ruta llamada complete_task-->
+                <button type="submit" class="btn btn-secondary" formaction="{% url 'complete_task' task.id %}" >Completar tarea</button>
+                <button type="submit" class="btn btn-secondary" formaction="{% url 'task_eliminated' task.id %}" >Eliminar</button>
+            </form>
+
+        </div>
+    </div>
+   
+</main>
+
+
+{% endblock %}

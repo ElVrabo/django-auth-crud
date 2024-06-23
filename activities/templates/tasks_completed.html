@@ -1,0 +1,25 @@
+{% extends 'base.html' %}
+
+{% block content %}
+
+
+{% if tasks %}
+{% for task in tasks %}
+<ul class="list-group container mt-4"  >
+<li class="list-group-item " >
+ <h2>{{task.title}}</h2>
+ <p>{{task.description}}</p>
+ <p>La tarea se marco como completada el: {{task.datecompleted|date:'M j Y:i' }}</p>
+ <form action="{% url 'task_eliminated' task.id %}" method="POST" >
+    {% csrf_token %}
+    <button class="btn btn-primary" >Eliminar</button>
+</form>
+</li>
+
+</ul>
+{% endfor %}
+{% else %}
+<h2 class="text-center" >No has completado ninguna tarea</h2>
+{% endif %}
+
+{% endblock %}

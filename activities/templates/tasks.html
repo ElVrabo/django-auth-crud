@@ -1,0 +1,29 @@
+{% extends 'base.html' %}
+{% block content %}
+
+{% if tasks %}
+{%  for task in tasks  %}
+<ul class="list-group container mt-4"  >
+    <li class="list-group-item" >
+        <a style="text-decoration: none;" href="{% url 'task_details' task.id %}" />
+        {% if task.important %}
+        <h2 style="color: red;" >{{task.title}}</h2>
+        {% else %}
+           <h2 style="color: black;" >{{task.title}}</h2>
+        {% endif %}
+        <p style="color: black;" >{{task.description}}</p>
+        <form action="{% url 'task_eliminated' task.id %}" method="POST" >
+            {% csrf_token  %}
+            <button class="btn btn-primary" >Eliminar</button>
+        </form>
+    </li>
+</ul>
+{% endfor %}
+{% else %}
+<div style="display: flex; justify-content: center; align-items: center; height: 100vh;" >
+    <a href="{% url 'create_task' %}" class="container text-center">
+        <i class="fas fa-plus-circle" style="font-size: 68px;"></i>
+    </a>
+</div>
+{% endif %}
+{% endblock %}
